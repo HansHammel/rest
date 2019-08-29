@@ -1,22 +1,83 @@
 language: node_js
+
+sudo: false
+
+node_js:
+  #- '8'
+  #- '9'
+  #- '10'
+  #- '11'
+  #- '12'
+  - lts/*
+  - node
+
+os:
+  - windows
+  - linux
+  - osx
+
+matrix:
+  fast_finish: true
+  allow_failures:
+    - os: windows
+
 cache:
   directories:
+    - $HOME/.npm
+    - ~/.npm
+    - ~/.yarn-cache
+    - travis_phantomjs
     - node_modules
-node_js:
-- v6
-- v7
-- v8
-- v9
+  npm: true
+  apt: true
+
+services:
+  - mongodb
+  #- mysql
+  #- redis
+  #- postgrsql
+
+dist: bionic
+
+#If you install a service in the addons: section, such as MariaDB, you do not need to add it to the services: section as well.
 addons:
+  hosts:
+  #- localhost.test
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      #- ubuntu-toolchain-r-test
+      #- ppa:chris-lea/redis-server
     packages:
-    - gcc-4.8
-    - g++-4.8
+      #- redis-tools
+      #- redis-server
+      #- gcc-4.8
+      #- g++-4.8
+
 env:
   global:
-  - CXX=g++-4.8
-  - SENDGRID_KEY=sendgridKey
-  - MASTER_KEY=masterKey
-  - JWT_SECRET=jwtSecret
+    - NODE_ENV=testing  
+    #- CXX=g++-4.8
+    - SENDGRID_KEY=sendgridKey
+    - MASTER_KEY=masterKey
+    - JWT_SECRET=jwtSecret
+
+branches:
+  only:
+    - master
+    - /^greenkeeper-.*$/
+    - /^greenkeeper/.*$/
+
+before_install:
+
+install:
+  #- npm i npm@latest -g 
+
+script:
+  - npm run lintfix
+  - npm run lint
+  # skip tests on linux with node lts and do coverage instead
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" != "lts/*" ]]; then npm test              ; fi
+  # run coverage and docs only on linux with node lts
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" == "lts/*" ]]; then npm run coverage      ; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" == "lts/*" ]]; then npm run docs          ; fi
+ 

@@ -1,12 +1,12 @@
 'use strict';
-var yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var randtoken = require('rand-token');
 var _ = require('lodash');
 
-module.exports = yeoman.Base.extend({
-  prompting: function () {
+module.exports = class extends Generator {
+  prompting() {
     var that = this;
     // Have Yeoman greet the user.
     this.log(yosay(
@@ -105,9 +105,9 @@ module.exports = yeoman.Base.extend({
         authMethods: props.authMethods || []
       });
     });
-  },
+  }
 
-  writing: function () {
+  writing() {
     var props = this.props;
     var copy = this.fs.copy.bind(this.fs);
     var copyTpl = this.fs.copyTpl.bind(this.fs);
@@ -153,9 +153,9 @@ module.exports = yeoman.Base.extend({
     if (props.sendgridKey) {
       copyTpl(tPath('services/sendgrid'), dPath(props.srcDir + '/services/sendgrid'), props);
     }
-  },
+  }
 
-  install: function () {
+  install() {
     this.installDependencies({bower: false});
   }
-});
+}

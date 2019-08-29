@@ -1,13 +1,13 @@
 'use strict';
 var path = require('path');
-var yeoman = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 var pluralize = require('pluralize');
 var _ = require('lodash');
 var recast = require('recast');
 var reservedWords = require('reserved-words');
 
-module.exports = yeoman.Base.extend({
-  prompting: function () {
+module.exports = class extends Generator {
+  prompting() {
     var srcDir = this.config.get('srcDir') || 'src';
     var apiDir = this.config.get('apiDir') || 'api';
     var authMethods = this.config.get('authMethods') || [];
@@ -182,9 +182,9 @@ module.exports = yeoman.Base.extend({
         this.props.modelFields.splice(this.props.modelFields.indexOf(props.userField), 1);
       }
     }.bind(this));
-  },
+  }
 
-  writing: function () {
+  writing() {
     var props = this.props;
     var routesFile = path.join(props.dir, 'index.js');
     var copyTpl = this.fs.copyTpl.bind(this.fs);
@@ -238,9 +238,9 @@ module.exports = yeoman.Base.extend({
 
       this.fs.write(routesFile, recast.print(ast).code);
     }
-  },
+  }
 
-  install: function () {
+  install() {
 
   }
-});
+};

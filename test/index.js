@@ -2,7 +2,7 @@
 var Promise = require('bluebird');
 var path = require('path');
 var fs = require('fs-extra');
-var spawnCommand = require('yeoman-generator/lib/actions/spawn_command').spawnCommand;
+var spawnCommand = require('yeoman-generator/lib/actions/spawn-command').spawnCommand;
 var helpers = require('yeoman-test');
 
 var authServices = ['facebook', 'github', 'google'];
@@ -45,7 +45,7 @@ function install(answers, done, generateApis) {
 
       promise.then(function (dir) {
         console.log('Copying node_modules folder...');
-        fs.ensureSymlinkSync(path.join(__dirname, '../node_modules'), path.join(dir, 'node_modules'));
+        fs.ensureSymlinkSync(path.join(__dirname, '../node_modules'), path.join(dir, 'node_modules'), 'junction');
         spawnCommand('npm', ['run', 'lint']).on('exit', function (err) {
           if (err) {
             return done(err);
