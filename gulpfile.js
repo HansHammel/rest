@@ -40,19 +40,16 @@ gulp.task(
         .src('test/**/*.js')
         .pipe(
           plumber(function(err) {
-            // console.error(err);
             if (err) done(new Error(err));
             this.emit('end');
           })
         )
         .pipe(mocha({ reporter: 'spec', timeout: 600000 }))
         .on('error', function(err) {
-          // console.error(err);
           if (err) mochaErr = err;
         })
         .pipe(istanbul.writeReports())
         .on('error', function(err) {
-          // console.error(err);
           if (err) done(new Error(err));
         })
         .on('end', function() {

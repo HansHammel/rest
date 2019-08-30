@@ -60,32 +60,27 @@ function install(answers, done, generateApis) {
 
       promise
         .then(function(dir) {
-          console.log('Copying node_modules folder...');
           fs.ensureSymlinkSync(
             path.join(__dirname, '../node_modules'),
             path.join(dir, 'node_modules'),
             'junction'
           );
-          // spawnCommand('npm', ['install'], { stdio: 'inherit' }).on('exit', function (code) {
-          //   if (code !== 0) {
-          //     return done(new Error('npm install failed'));
-          //   }
-          // console.log("running npm lintfix");
-          // spawnCommand('npm', ['run', 'lintfix'], { stdio: 'inherit' }).on('exit', function (code) {
-          //   if (code !== 0) {
-          //     throw new Error('npm lintfix of generated files failed');
-          //   }
-          console.log('running npm test');
-          spawnCommand('npm', ['test'], { stdio: 'inherit' }).on(
+          spawnCommand('npm', ['run', 'lintfix'], { stdio: 'inherit' }).on(
             'exit',
             function(code) {
               if (code !== 0) {
-                throw new Error('npm test of generated files failed');
-              } else done();
+                throw new Error('npm lintfix of generated files failed');
+              }
+              spawnCommand('npm', ['test'], { stdio: 'inherit' }).on(
+                'exit',
+                function(code) {
+                  if (code !== 0) {
+                    throw new Error('npm test of generated files failed');
+                  } else done();
+                }
+              );
             }
           );
-          // });
-          // });
         })
         .catch(function(err) {
           if (err) done(err);

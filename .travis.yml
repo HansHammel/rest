@@ -74,7 +74,7 @@ install:
 
 script:
   - npm run lintfix
-  - npm run lint
+  #- npm run lint
   # skip tests on linux with node lts and do coverage instead
   - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" != "lts/*" ]]; then npm test              ; fi
   # run coverage and docs only on linux with node lts
