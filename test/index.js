@@ -85,8 +85,7 @@ function install(answers, done, generateApis) {
           })
           .catch(function(err) {
             if (err) done(err);
-          })
-          .done();
+          });
       });
   } catch (err) {
     console.log(err);
