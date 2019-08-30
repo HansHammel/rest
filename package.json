@@ -34,7 +34,6 @@
   "dependencies": {
     "bluebird": "^3.5.5",
     "chalk": "^2.4.2",
-    "eslint-plugin-node": "^9.2.0",
     "lodash": "^4.17.15",
     "pluralize": "^8.0.0",
     "rand-token": "^0.4.0",
@@ -124,17 +123,20 @@
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^2.0.0"
   },
-  "repository": "diegohaz/generator-rest",
+  "repository": "HansHammel/rest",
   "scripts": {
     "remove_prepare": "gulp prepare",
     "test": "gulp",
     "test2": "mocha --exit --colors --preserve-symlinks --trace --allow-uncaught test",
+    "test3": "mocha test",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "postpublish": "git push origin master --follow-tags",
     "lint": "eslint generators test prettier.config.js gulpfile.js",
     "lintfix": "npm run lint -- --fix",
-    "coverage": "nyc --require mocha --silent npm run test",
+    "coverage": "nyc --require mocha npm run test",
+    "coverage2": "nyc --require mocha npm run test2",
+    "coverage3": "nyc --require mocha npm run test3",
     "report": "nyc report --reporter=lcov --reporter=text"
   },
   "license": "MIT",
