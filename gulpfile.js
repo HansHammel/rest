@@ -36,6 +36,7 @@ gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
   return gulp.src('test/**/*.js')
     .pipe(plumber(function(err) {
       //console.error(err);
+      if (err) done(new Error(err));
       this.emit('end');
   }))
     .pipe(mocha({reporter: 'spec', timeout: 600000}))
@@ -46,10 +47,10 @@ gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
     .pipe(istanbul.writeReports())
     .on('error', function (err) {
       //console.error(err);
-      if (err) done(err);
+      if (err) done(new Error(err));
     })
     .on('end', function () {
-      done(mochaErr);
+      done();
     });
 }));
 
