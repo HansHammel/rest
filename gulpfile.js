@@ -1,13 +1,13 @@
 'use strict';
-//var path = require('path');
+// var path = require('path');
 var gulp = require('gulp');
 // var eslint = require('gulp-eslint');
-//var excludeGitignore = require('gulp-exclude-gitignore');
+// var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 // var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
-//var coveralls = require('@kollavarsham/gulp-coveralls');
+// var coveralls = require('@kollavarsham/gulp-coveralls');
 
 // gulp.task('lint', gulp.series(function () {
 //   return gulp.src('generators/!(templates)**/index.js')
@@ -30,34 +30,46 @@ var plumber = require('gulp-plumber');
 //     .pipe(istanbul.hookRequire())
 //   }));
 
-gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
-  //var mochaErr;
+gulp.task(
+  'test',
+  gulp.series(
+    /* 'pre-test', */ function(done) {
+      var mochaErr;
 
-  return gulp.src('test/**/*.js')
-    .pipe(plumber(function(err) {
-      //console.error(err);
-      if (err) done(new Error(err));
-      this.emit('end');
-  }))
-    .pipe(mocha({reporter: 'spec', timeout: 600000}))
-    .on('error', function (err) {
-      //console.error(err);
-      if (err) mochaErr = err;
-    })
-    .pipe(istanbul.writeReports())
-    .on('error', function (err) {
-      //console.error(err);
-      if (err) done(new Error(err));
-    })
-    .on('end', function () {
-      done();
-    });
-}));
+      return gulp
+        .src('test/**/*.js')
+        .pipe(
+          plumber(function(err) {
+            // console.error(err);
+            if (err) done(new Error(err));
+            this.emit('end');
+          })
+        )
+        .pipe(mocha({ reporter: 'spec', timeout: 600000 }))
+        .on('error', function(err) {
+          // console.error(err);
+          if (err) mochaErr = err;
+        })
+        .pipe(istanbul.writeReports())
+        .on('error', function(err) {
+          // console.error(err);
+          if (err) done(new Error(err));
+        })
+        .on('end', function() {
+          if (mochaErr) done(mochaErr);
+          else done();
+        });
+    }
+  )
+);
 
-gulp.task('watch', gulp.series(function (done) {
-  gulp.watch(gulp.parallel('generators/**/*.js', 'test/**', 'test'));
-  done();
-}));
+gulp.task(
+  'watch',
+  gulp.series(function(done) {
+    gulp.watch(gulp.parallel('generators/**/*.js', 'test/**', 'test'));
+    done();
+  })
+);
 
 // gulp.task('coveralls', gulp.series('test', function (done) {
 //   if (!process.env.CI) {
@@ -68,5 +80,5 @@ gulp.task('watch', gulp.series(function (done) {
 //     .pipe(coveralls());
 // }));
 
-//gulp.task('prepare', [/* 'nsp' */]);
-gulp.task('default', gulp.series('test'/*, 'coveralls'*/));
+// gulp.task('prepare', [/* 'nsp' */]);
+gulp.task('default', gulp.series('test' /*, 'coveralls' */));
