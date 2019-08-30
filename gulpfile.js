@@ -31,7 +31,7 @@ var plumber = require('gulp-plumber');
 //   }));
 
 gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
-  var mochaErr;
+  //var mochaErr;
 
   return gulp.src('test/**/*.js')
     .pipe(plumber(function(err) {
