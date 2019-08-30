@@ -152,7 +152,7 @@ module.exports = class extends Generator {
     copyTpl(tPath('.travis.yml'), dPath('.travis.yml'), props);
     copyTpl(tPath('.env'), dPath('.env'), props);
     copyTpl(tPath('.env.example'), dPath('.env.example'), props);
-    copyTpl(tPath('package.json'), dPath('package.json'), props);
+    copyTpl(tPath('_package.json'), dPath('package.json'), props);
     copyTpl(tPath('README.md'), dPath('README.md'), props);
     copyTpl(tPath('src'), dPath(props.srcDir), props);
     copyTpl(tPath('test'), dPath('test'), props);
