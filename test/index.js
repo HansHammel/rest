@@ -1,5 +1,5 @@
 'use strict';
-const CWD = process.cwd()
+//const CWD = process.cwd()
 var Promise = require('bluebird');
 var path = require('path');
 var fs = require('fs-extra');

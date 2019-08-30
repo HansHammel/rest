@@ -1,21 +1,21 @@
 'use strict';
-var path = require('path');
+//var path = require('path');
 var gulp = require('gulp');
-var eslint = require('gulp-eslint');
-var excludeGitignore = require('gulp-exclude-gitignore');
+// var eslint = require('gulp-eslint');
+//var excludeGitignore = require('gulp-exclude-gitignore');
 var mocha = require('gulp-mocha');
 var istanbul = require('gulp-istanbul');
 // var nsp = require('gulp-nsp');
 var plumber = require('gulp-plumber');
-var coveralls = require('@kollavarsham/gulp-coveralls');
+//var coveralls = require('@kollavarsham/gulp-coveralls');
 
-gulp.task('lint', gulp.series(function () {
-  return gulp.src('generators/!(templates)**/index.js')
-    .pipe(excludeGitignore())
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
-}));
+// gulp.task('lint', gulp.series(function () {
+//   return gulp.src('generators/!(templates)**/index.js')
+//     .pipe(excludeGitignore())
+//     .pipe(eslint())
+//     .pipe(eslint.format())
+//     .pipe(eslint.failAfterError());
+// }));
 
 // gulp.task('nsp', function (cb) {
 //   nsp({package: path.resolve('package.json')}, cb);
@@ -46,7 +46,7 @@ gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
     .pipe(istanbul.writeReports())
     .on('error', function (err) {
       //console.error(err);
-      done(err);
+      if (err) done(err);
     })
     .on('end', function () {
       done(mochaErr);

@@ -131,7 +131,8 @@
     "minor": "npm version minor && npm publish",
     "postpublish": "git push origin master --follow-tags",
     "lint": "eslint generators test prettier.config.js gulpfile.js",
-    "lintfix": "npm run lint -- --fix"
+    "lintfix": "npm run lint -- --fix",
+    "coverage": "nyc --reporter=lcov --reporter=text-summary npm run test"
   },
   "license": "MIT",
   "husky": {
