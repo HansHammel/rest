@@ -6,7 +6,7 @@ import { sign } from '../../services/jwt'
 
 export const index = ({ querymen: { query, select, cursor } }, res, next) =>
 <%_ if (getList) { _%>
-  User.count(query)
+  User.countDocuments(query)
     .then(count => User.find(query, select, cursor)
       .then(users => ({
         rows: users.map((user) => user.view()),
@@ -104,6 +104,6 @@ export const updatePassword = ({ bodymen: { body }, params, user }, res, next) =
 export const destroy = ({ params }, res, next) =>
   User.findById(params.id)
     .then(notFound(res))
-    .then((user) => user ? user.remove() : null)
+    .then((user) => user ? user.deleteOne() : null)
     .then(success(res, 204))
     .catch(next)

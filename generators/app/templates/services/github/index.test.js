@@ -1,5 +1,5 @@
-import nock from 'nock'
-import * as github from '.'
+import nock from 'nock';
+import * as github from '.';
 
 it('parses github user', async () => {
   const ghUser = {
@@ -42,30 +42,40 @@ it('parses github user', async () => {
       name: 'personal',
       space: 9999999,
       collaborators: 0,
-      private_repos: 9999
-    }
-  }
-  const ghUserEmails = [{
-    email: 'email@example.com',
-    primary: true,
-    verified: true
-  }, {
-    email: 'email2@example.com',
-    primary: false,
-    verified: true
-  }, {
-    email: 'email3@example.com',
-    primary: false,
-    verified: true
-  }]
+      private_repos: 9999,
+    },
+  };
+  const ghUserEmails = [
+    {
+      email: 'email@example.com',
+      primary: true,
+      verified: true,
+    },
+    {
+      email: 'email2@example.com',
+      primary: false,
+      verified: true,
+    },
+    {
+      email: 'email3@example.com',
+      primary: false,
+      verified: true,
+    },
+  ];
 
-  nock('https://api.github.com').get('/user').query(true).reply(200, ghUser)
-  nock('https://api.github.com').get('/user/emails').query(true).reply(200, ghUserEmails)
+  nock('https://api.github.com')
+    .get('/user')
+    .query(true)
+    .reply(200, ghUser);
+  nock('https://api.github.com')
+    .get('/user/emails')
+    .query(true)
+    .reply(200, ghUserEmails);
 
-  const data = await github.getUser('123')
-  expect(data.service).toBe('github')
-  expect(data.id).toBe(ghUser.id)
-  expect(data.name).toBe(ghUser.login)
-  expect(data.email).toBe(ghUserEmails[0].email)
-  expect(data.picture).toBe(ghUser.avatar_url)
-})
+  const data = await github.getUser('123');
+  expect(data.service).toBe('github');
+  expect(data.id).toBe(ghUser.id);
+  expect(data.name).toBe(ghUser.login);
+  expect(data.email).toBe(ghUserEmails[0].email);
+  expect(data.picture).toBe(ghUser.avatar_url);
+});
