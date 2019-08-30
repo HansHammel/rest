@@ -127,8 +127,8 @@
   "scripts": {
     "remove_prepare": "gulp prepare",
     "test": "gulp",
-    "test2": "mocha --exit --colors --preserve-symlinks --trace --allow-uncaught test",
-    "test3": "mocha test",
+    "test2": "mocha --exit --colors --preserve-symlinks --trace --allow-uncaught --timeout 10000 test",
+    "test3": "mocha --timeout 10000 test",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "postpublish": "git push origin master --follow-tags",
