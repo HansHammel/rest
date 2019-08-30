@@ -74,11 +74,12 @@ install:
 
 script:
   - npm run lintfix
+  - npm run test
   #- npm run coverage
   #- npm run lint
   # skip tests on linux with node lts and do coverage instead
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" != "lts/*" ]]; then npm run coverage2     ; fi
+  #- if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" != "lts/*" ]]; then npm run coverage2     ; fi
   # run coverage and docs only on linux with node lts
-  - if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" == "lts/*" ]]; then npm run coverage3      ; fi
+  #- if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" == "lts/*" ]]; then npm run coverage3      ; fi
   #- if [[ "$TRAVIS_OS_NAME" == "linux" && "$TRAVIS_NODE_VERSION" == "lts/*" ]]; then npm run docs          ; fi
  

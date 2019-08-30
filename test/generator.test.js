@@ -10,87 +10,82 @@ var helpers = require('yeoman-test');
 var authServices = ['facebook', 'github', 'google'];
 
 function install(answers, done, generateApis) {
-  try {
-    return helpers
-      .run(path.join(__dirname, '../generators/app'))
-      .withPrompts(answers)
-      .toPromise()
-      .then(function(dir) {
-        var promise = Promise.resolve(dir);
+  return helpers
+    .run(path.join(__dirname, '../generators/app'))
+    .withPrompts(answers)
+    .toPromise()
+    .then(function(dir) {
+      var promise = Promise.resolve(dir);
 
-        if (generateApis) {
-          console.log('Generating APIs...');
-          promise = defaultApi(dir)
-            .then(function(dir) {
-              return apiWithDifferentEndpointName(dir);
-            })
-            .then(function(dir) {
-              return apiWithNoMethods(dir);
-            })
-            .then(function(dir) {
-              return apiWithReservedWord(dir);
-            })
-            .then(function(dir) {
-              return apiWithAllMasterMethods(dir);
-            })
-            .then(function(dir) {
-              return apiWithAllAdminMethods(dir);
-            })
-            .then(function(dir) {
-              return apiWithAllUserMethods(dir);
-            })
-            .then(function(dir) {
-              return apiWithDifferentUserField(dir);
-            })
-            .then(function(dir) {
-              return apiWithOnlyPostUserMethod(dir);
-            })
-            .then(function(dir) {
-              return apiWithoutModel(dir);
-            })
-            .then(function(dir) {
-              return apiWithModelFields(dir);
-            })
-            .then(function(dir) {
-              return apiWithUserModelField(dir);
-            })
-            .then(function(dir) {
-              return apiWithCountAndRowsGetList(dir);
-            });
-        }
-
-        promise
+      if (generateApis) {
+        console.log('Generating APIs...');
+        promise = defaultApi(dir)
           .then(function(dir) {
-            fs.ensureSymlinkSync(
-              path.join(__dirname, '../node_modules'),
-              path.join(dir, 'node_modules'),
-              'junction'
-            );
-            spawnCommand('npm', ['run', 'lintfix'], { stdio: 'inherit' }).on(
-              'exit',
-              function(code) {
-                if (code !== 0) {
-                  throw new Error('npm lintfix of generated files failed');
-                }
-                spawnCommand('npm', ['test'], { stdio: 'inherit' }).on(
-                  'exit',
-                  function(code) {
-                    if (code !== 0) {
-                      throw new Error('npm test of generated files failed');
-                    } else done();
-                  }
-                );
+            return apiWithDifferentEndpointName(dir);
+          })
+          .then(function(dir) {
+            return apiWithNoMethods(dir);
+          })
+          .then(function(dir) {
+            return apiWithReservedWord(dir);
+          })
+          .then(function(dir) {
+            return apiWithAllMasterMethods(dir);
+          })
+          .then(function(dir) {
+            return apiWithAllAdminMethods(dir);
+          })
+          .then(function(dir) {
+            return apiWithAllUserMethods(dir);
+          })
+          .then(function(dir) {
+            return apiWithDifferentUserField(dir);
+          })
+          .then(function(dir) {
+            return apiWithOnlyPostUserMethod(dir);
+          })
+          .then(function(dir) {
+            return apiWithoutModel(dir);
+          })
+          .then(function(dir) {
+            return apiWithModelFields(dir);
+          })
+          .then(function(dir) {
+            return apiWithUserModelField(dir);
+          })
+          .then(function(dir) {
+            return apiWithCountAndRowsGetList(dir);
+          });
+      }
+
+      promise
+        .then(function(dir) {
+          fs.ensureSymlinkSync(
+            path.join(__dirname, '../node_modules'),
+            path.join(dir, 'node_modules'),
+            'junction'
+          );
+          spawnCommand('npm', ['run', 'lintfix'], { stdio: 'inherit' }).on(
+            'exit',
+            function(code) {
+              if (code !== 0) {
+                throw new Error('npm lintfix of generated files failed');
               }
-            );
-          })
-          .catch(function(err) {
-            if (err) done(err);
-          })
-          .done();
-      });
-  } catch (err) {
-    console.log(err);
-  }
+              spawnCommand('npm', ['test'], { stdio: 'inherit' }).on(
+                'exit',
+                function(code) {
+                  if (code !== 0) {
+                    throw new Error('npm test of generated files failed');
+                  } else done();
+                }
+              );
+            }
+          );
+        })
+        .catch(function(err) {
+          if (err) done(err);
+        });
+    });
 }
 
 function defaultApi(dir) {
@@ -244,21 +239,21 @@ describe('generator-rest', function() {
   // })
 
   describe('default install', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({}, done, true);
     });
     it('should install and pass tests', function() {});
   });
 
   describe('install with password method and auth after user create', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({ authMethods: ['password'], authOnUserCreate: true }, done);
     });
     it('should install and pass tests', function() {});
   });
 
   describe('install with password reset option', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install(
         {
           https: true,
@@ -271,7 +266,7 @@ describe('generator-rest', function() {
   });
 
   describe('install with different src and api directories', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({ srcDir: 'server', apiDir: 'endpoints' }, done, true);
     });
     it('should install and pass tests', function() {});
@@ -279,7 +274,7 @@ describe('generator-rest', function() {
 
   authServices.forEach(function(service) {
     describe('install with ' + service + ' auth method', function() {
-      before(function(done) {
+      beforeEach(function(done) {
         install({ authMethods: [service] }, done);
       });
       it('should install and pass tests', function() {});
@@ -287,21 +282,21 @@ describe('generator-rest', function() {
   });
 
   describe('install with all auth methods', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({ authMethods: ['password'].concat(authServices) }, done);
     });
     it('should install and pass tests', function() {});
   });
 
   describe('install without auth API', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({ generateAuthApi: false }, done, true);
     });
     it('should install and pass tests', function() {});
   });
 
   describe('install with { rows, count } API', function() {
-    before(function(done) {
+    beforeEach(function(done) {
       install({ getList: true }, done, true);
     });
     it('should install and pass tests', function() {});

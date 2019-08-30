@@ -4,32 +4,72 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "type": "node",
             "request": "launch",
-            "name": "Mocha Tests",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "name": "Jest All",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
             "args": [
-                "--inspect-brk",
-                //"--require", "babel-register",
-                //"-u", "tdd",
-                "--timeout", "999999",
-                "--colors",
-                "${workspaceFolder}/test",
-                "test/**/*.js"
+                "--runInBand",
+                "--detectOpenHandles"
             ],
-            "internalConsoleOptions": "openOnSessionStart",
-            // "runtimeArgs": [
-            //     "--nolazy"
-            // ],
-            // "sourceMaps": true
-            //"port": 9229
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest-cli/bin/jest",
+            }
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}\\generators\\index.js"
+            "name": "Jest Current File",
+            "program": "${workspaceFolder}/node_modules/.bin/jest",
+            "args": [
+                "--runInBand",
+                "--detectOpenHandles",
+                "${fileBasenameNoExtension}",
+                "--config",
+                "jest.config.js"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "windows": {
+                "program": "${workspaceFolder}/node_modules/jest-cli/bin/jest",
+            }
         }
     ]
+}
+        {
+    "type": "node",
+    "request": "launch",
+    "name": "Mocha Tests",
+    "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+    "args": [
+        "--inspect",
+        //"--require", "babel-register",
+        //"-u", "tdd",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/test",
+        "test/**/*.js"
+    ],
+    "internalConsoleOptions": "openOnSessionStart",
+    // "runtimeArgs": [
+    //     "--nolazy"
+    // ],
+    // "sourceMaps": true
+    //"port": 9229
+},
+{
+    "type": "node",
+    "request": "launch",
+    "name": "Launch Program",
+    "program": "${workspaceFolder}\\generators\\index.js"
+}
+]
 }

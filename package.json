@@ -99,6 +99,7 @@
     "gulp-mocha": "^7.0.1",
     "gulp-plumber": "^1.2.1",
     "husky": "^3.0.4",
+    "jest": "^24.9.0",
     "jest-cli": "^24.9.0",
     "jsonwebtoken": "^8.5.1",
     "mongodb-memory-server": "^5.2.0",
@@ -127,12 +128,13 @@
   "scripts": {
     "remove_prepare": "gulp prepare",
     "test": "gulp",
+    "test1": "jest",
     "test2": "mocha --exit --colors --preserve-symlinks --trace --allow-uncaught --timeout 10000 test",
     "test3": "mocha --timeout 10000 test",
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "postpublish": "git push origin master --follow-tags",
-    "lint": "eslint generators test prettier.config.js gulpfile.js",
+    "lint": "eslint generators test prettier.config.js gulpfile.js jest.config.js",
     "lintfix": "npm run lint -- --fix",
     "coverage": "nyc --require mocha npm run test",
     "coverage2": "nyc --require mocha npm run test2",
@@ -142,7 +144,7 @@
   "license": "MIT",
   "husky": {
     "hooks": {
-      "pre-commit": "git add -A"
+      "pre-commit": "npm run lintfix && git add -A"
     }
   }
 }
