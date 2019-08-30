@@ -130,8 +130,8 @@
     "patch": "npm version patch && npm publish",
     "minor": "npm version minor && npm publish",
     "postpublish": "git push origin master --follow-tags",
-    "lint": "eslint generators test prettier.config.js",
-    "lintgenerated": "eslint src test --fix"
+    "lint": "eslint generators test prettier.config.js gulpfile.js",
+    "lintfix": "npm run lint -- --fix"
   },
   "license": "MIT",
   "husky": {
