@@ -1,4 +1,7 @@
 # rest [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage percentage][coveralls-image]][coveralls-url]
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/HansHammel/rest.svg)](https://greenkeeper.io/)
+
 > RESTful API generator using NodeJS, Express and Mongoose
 
 📹 [Watch this video](https://www.youtube.com/watch?v=6x-ijyG-ack) for an overview on how to use **generator-rest** and deploy your project to [Heroku](https://heroku.com).
