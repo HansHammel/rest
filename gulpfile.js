@@ -41,7 +41,7 @@ gulp.task('test', gulp.series(/*'pre-test',*/ function (done) {
     .pipe(mocha({reporter: 'spec', timeout: 600000}))
     .on('error', function (err) {
       //console.error(err);
-      mochaErr = err;
+      if (err) mochaErr = err;
     })
     .pipe(istanbul.writeReports())
     .on('error', function (err) {
