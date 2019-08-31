@@ -244,7 +244,7 @@ MIT © [Diego Haz](https://github.com/diegohaz)
 
 [npm-image]: https://badge.fury.io/js/generator-rest.svg
 [npm-url]: https://npmjs.org/package/generator-rest
-[travis-image]: https://travis-ci.org/diegohaz/rest.svg?branch=master
-[travis-url]: https://travis-ci.org/diegohaz/rest
-[coveralls-image]: https://coveralls.io/repos/diegohaz/rest/badge.svg
-[coveralls-url]: https://coveralls.io/r/diegohaz/rest
+[travis-image]: https://travis-ci.org/HansHammel/rest.svg?branch=master
+[travis-url]: https://travis-ci.org/HansHammel/rest
+[coveralls-image]: https://coveralls.io/repos/HansHammel/rest/badge.svg
+[coveralls-url]: https://coveralls.io/r/HansHammel/rest
