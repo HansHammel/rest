@@ -69,7 +69,7 @@
     "@kollavarsham/gulp-coveralls": "^0.2.8",
     "@sendgrid/mail": "^6.4.0",
     "@silesia-corporation/eslint-plugin-ejs": "^0.2.0",
-    "apidoc": "^0.17.7",
+    "apidoc": "^0.18.0",
     "apidoc-markdown": "^0.2.1",
     "babel-eslint": "^10.0.3",
     "babel-jest": "^24.9.0",
