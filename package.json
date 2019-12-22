@@ -119,7 +119,7 @@
     "querymen": "^2.1.3",
     "request": "^2.88.0",
     "request-promise": "^4.2.4",
-    "sinon": "^7.4.1",
+    "sinon": "^8.0.0",
     "supertest": "^4.0.2",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^2.0.0"
